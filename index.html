@@ -6,11 +6,12 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; width: 300px; height: 300px;}
       table { margin: 4px; width: 50%; height: 50%; border-spacing: 0px; border-collapse: collapse;}
-      td { border:5px solid black; width: 50%; height: 50%; }
+      td { border:5px solid black; width: 33%; height: 33%; }
     </style>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
       var socket = io();
+      var localState = {};
     </script>
 
   </head>
@@ -19,11 +20,19 @@
       <tr>
         <td id="1"></td>
         <td id="2"></td>
+        <td id="3"></td>
       </tr>
       <tr>
-        <td id="3"></td>
         <td id="4"></td>
+        <td id="5"></td>
+        <td id="6"></td>
+      </tr>      
+      <tr>
+        <td id="7"></td>
+        <td id="8"></td>
+        <td id="9"></td>
       </tr>
+
     </table>
 
     <script type="text/javascript">
@@ -31,7 +40,20 @@
         // console.log(e.target.id,'table clicked');
         socket.emit('clicked',e.target.id);
       });
-      socket.on('clicked id', function(data){
+      socket.on('connect', function(){
+        // store stateData
+        socket.emit('getState');
+        socket.on('sendState', function(stateData){
+          console.log('connected!!',stateData);
+          // paint DOM with present state
+          for (var i in stateData){
+            document.getElementById(i).style.backgroundColor = "red";
+          }
+        })
+      });
+      socket.on('clicked id', function(data, state){
+        localState = state;
+        console.log('localState',localState);
         console.log(data);
         // toggle colour:
         if ((window.getComputedStyle(document.getElementById(data)).getPropertyValue("background-color")) === 'rgba(0, 0, 0, 0)'){
