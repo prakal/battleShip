@@ -12,13 +12,19 @@
   <body>
     <table>
       <tr>
-        <td></td>
-        <td></td>
+        <td id="1"></td>
+        <td id="2"></td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
+        <td id="3"></td>
+        <td id="4"></td>
       </tr>
     </table>
+
+    <script type="text/javascript">
+      document.getElementsByTagName('table')[0].addEventListener('click',function(e){
+        console.log(e.target.id,'table clicked');
+      });
+    </script>
   </body>
 </html>
