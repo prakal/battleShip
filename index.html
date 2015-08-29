@@ -11,7 +11,6 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
       var socket = io();
-      var localState = {};
     </script>
 
   </head>
@@ -44,7 +43,7 @@
         // store stateData
         socket.emit('getState');
         socket.on('sendState', function(stateData){
-          console.log('connected!!',stateData);
+          // console.log('connected!!',stateData);
           // paint DOM with present state
           for (var i in stateData){
             document.getElementById(i).style.backgroundColor = "red";
@@ -52,8 +51,6 @@
         })
       });
       socket.on('clicked id', function(data, state){
-        localState = state;
-        console.log('localState',localState);
         console.log(data);
         // toggle colour:
         if ((window.getComputedStyle(document.getElementById(data)).getPropertyValue("background-color")) === 'rgba(0, 0, 0, 0)'){
