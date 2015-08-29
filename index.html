@@ -8,7 +8,7 @@
       table { margin: 4px; width: 50%; height: 50%; border-spacing: 0px; border-collapse: collapse;}
       td { border:5px solid black; width: 50%; height: 50%; }
     </style>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script>
       var socket = io();
     </script>
@@ -28,8 +28,17 @@
 
     <script type="text/javascript">
       document.getElementsByTagName('table')[0].addEventListener('click',function(e){
-        console.log(e.target.id,'table clicked');
+        // console.log(e.target.id,'table clicked');
         socket.emit('clicked',e.target.id);
+      });
+      socket.on('clicked id', function(data){
+        console.log(data);
+        // toggle colour:
+        if ((window.getComputedStyle(document.getElementById(data)).getPropertyValue("background-color")) === 'rgba(0, 0, 0, 0)'){
+          document.getElementById(data).style.backgroundColor = "red";
+        } else {
+          document.getElementById(data).style.backgroundColor = "rgba(0, 0, 0, 0)";
+        }
       });
     </script>
   </body>
