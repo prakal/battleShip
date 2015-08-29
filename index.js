@@ -10,7 +10,8 @@ app.get('/', function(req,res){
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('clicked', function(data){
-  	console.log(data,'clicked');
+  	// console.log(data,'clicked');
+  	io.emit('clicked id', data);
   })
 });
 
