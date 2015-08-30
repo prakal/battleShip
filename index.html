@@ -51,7 +51,7 @@
         })
       });
       socket.on('clicked id', function(data, state){
-        console.log(data);
+        // console.log(data);
         // toggle colour:
         if ((window.getComputedStyle(document.getElementById(data)).getPropertyValue("background-color")) === 'rgba(0, 0, 0, 0)'){
           document.getElementById(data).style.backgroundColor = "red";
